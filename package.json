@@ -1,0 +1,16 @@
+
+{
+  "name": "true-money-gold-erp-workspace",
+  "version": "1.0.0",
+  "description": "Orchestrator for separated frontend and backend nodes",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:ui\"",
+    "dev:server": "cd backend && npm run dev",
+    "dev:ui": "cd frontend && npm run dev",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

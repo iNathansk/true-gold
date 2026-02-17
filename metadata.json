@@ -1,0 +1,7 @@
+{
+  "name": "True Money Gold & Silver ERP",
+  "description": "A comprehensive jewelry management system for franchise management, staff tracking, material inward processing, and transaction workflows including KYC, quotations, and sales.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

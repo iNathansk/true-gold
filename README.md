@@ -1,20 +1,65 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# ERP Backend & Frontend Suite - Project Documentation
 
-# Run and deploy your AI Studio app
+## 1. Project Overview & Architecture
+This project is a full-stack ERP (Enterprise Resource Planning) suite built for managing gold/silver procurement, processing, and sales. It features a modern React frontend and a robust Node.js/Express backend with Sequelize ORM.
 
-This contains everything you need to run your app locally.
+### Architecture Diagram
+```mermaid
+graph TD
+    User((User)) -->|React/Vite| Frontend[Frontend SPA]
+    Frontend -->|REST API| Backend[Node/Express Backend]
+    Backend -->|Sequelize| DB[(MariaDB/SQLite)]
+    Backend -->|JWT|  Auth[Authentication Service]
+    Frontend -->|External API| Market[Gold/Silver Live Rates]
+```
 
-View your app in AI Studio: https://ai.studio/apps/drive/1WmyZnzXeKLnyyYTd0sxU0AQOy6uBo52k
+---
 
-## Run Locally
+## 2. Core Module Breakdown
 
-**Prerequisites:**  Node.js
+### [Backend](file:///home/wdm/Downloads/latest-v1/backend)
+- **[server.ts](file:///home/wdm/Downloads/latest-v1/backend/server.ts)**: Express server initialization, middleware configuration (CORS, JWT), and API routing.
+- **[models.ts](file:///home/wdm/Downloads/latest-v1/backend/models.ts)**: Sequelize models defining the database schema (Tenant, User, Transaction, KYC, etc.).
+- **[db.ts](file:///home/wdm/Downloads/latest-v1/backend/db.ts)**: Database connection setup using Sequelize.
+- **[seeders.ts](file:///home/wdm/Downloads/latest-v1/backend/seeders.ts)**: Logic for initial database population with mock data.
 
+### [Frontend](file:///home/wdm/Downloads/latest-v1/frontend)
+- **[App.tsx](file:///home/wdm/Downloads/latest-v1/frontend/App.tsx)**: Main application entry point with routing and view management.
+- **[data-api.ts](file:///home/wdm/Downloads/latest-v1/frontend/data-api.ts)**: API service layer handling communication with the backend and external market data feeds.
+- **[types.ts](file:///home/wdm/Downloads/latest-v1/frontend/types.ts)**: Shared TypeScript interfaces and enums.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+#### Key Components
+- **[Dashboard.tsx](file:///home/wdm/Downloads/latest-v1/frontend/components/Dashboard.tsx)**: High-level overview of metrics and recent activity.
+- **[TransactionWorkflow.tsx](file:///home/wdm/Downloads/latest-v1/frontend/components/TransactionWorkflow.tsx)**: Core logic for managing multi-step procurement processes.
+- **[KYCCheck.tsx](file:///home/wdm/Downloads/latest-v1/frontend/components/KYCCheck.tsx)**: Compliance and identity verification module.
+- **[Melting.tsx](file:///home/wdm/Downloads/latest-v1/frontend/components/Melting.tsx)**: Specialized refining operation management.
+- **[Payment.tsx](file:///home/wdm/Downloads/latest-v1/frontend/components/Payment.tsx)**: Cash/Bank disbursement processing.
+
+---
+
+## 3. Command History & Operations
+
+### Setup and Development
+```bash
+# Backend Setup
+cd backend
+npm install
+npm start # Starts the server at http://localhost:5000
+
+# Frontend Setup
+cd frontend
+npm install
+npm run dev # Starts the Dev server
+```
+
+### Database Management
+- **Initialization**: Automatically handled on server boot via `sequelize.sync({ alter: true })`.
+- **Seeding**: Mock data is injected on startup for development testing.
+
+---
+
+## 4. Key Workflows Implemented
+1. **Procurement Lifecycle**: Material Inward → Quotation → RH Approval → Purchase Invoice → Accounts Verification → Payment.
+2. **Logistics Management**: Hub Transfer and Receipt with real-time status tracking.
+3. **Melting Operations**: Input/Output weight tracking with automatic loss calculation.
+4. **Market Data Integration**: Real-time syncing of gold and silver rates from external APIs (Gold-API, GoldPrice.org).

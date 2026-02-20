@@ -1,19 +1,14 @@
-# ERP Backend & Frontend Suite - Project Documentation
+Project Documentation
 
-## 1. Project Overview & Architecture
+## 1. Project Overview
 This project is a full-stack ERP (Enterprise Resource Planning) suite built for managing gold/silver procurement, processing, and sales. It features a modern React frontend and a robust Node.js/Express backend with Sequelize ORM.
 
 ### Architecture Diagram
-```mermaid
-graph TD
     User((User)) -->|React/Vite| Frontend[Frontend SPA]
     Frontend -->|REST API| Backend[Node/Express Backend]
     Backend -->|Sequelize| DB[(MariaDB/SQLite)]
     Backend -->|JWT|  Auth[Authentication Service]
     Frontend -->|External API| Market[Gold/Silver Live Rates]
-```
-
----
 
 ## 2. Core Module Breakdown
 
